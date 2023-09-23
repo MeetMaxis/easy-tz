@@ -1,10 +1,10 @@
 const typeAdress = document.getElementById("typeAdress");
+const continueButton = document.getElementById("continueButton");
 const sendEtherButton = document.getElementById("sendEtherButton");
 const statusMessage = document.getElementById("statusMessage");
-const continueButton = document.getElementById("continueButton");
 
 let isValidationComplete = false;
-continueButton.style.display = "none";
+sendEtherButton.style.display = "none";
 
 typeAdress.addEventListener("input", (e) => {
   const value = e.target.value;
@@ -17,7 +17,7 @@ typeAdress.addEventListener("input", (e) => {
   e.target.value = newValue;
 });
 
-sendEtherButton.addEventListener("click", async () => {
+continueButton.addEventListener("click", async () => {
   try {
     const value = typeAdress.value;
 
@@ -26,15 +26,15 @@ sendEtherButton.addEventListener("click", async () => {
       value.length >= 20
     ) {
       statusMessage.textContent = "Ожидание...";
-      sendEtherButton.disabled = true; // Делаем кнопку sendEtherButton неактивной
+      continueButton.disabled = true;
       typeAdress.disabled = true;
 
       setTimeout(() => {
         statusMessage.textContent = "Успешно";
-        
+
         isValidationComplete = true;
-        continueButton.style.display = "block"; // Отображаем кнопку continueButton
-      }, 10000);
+        sendEtherButton.style.display = "block";
+      }, 1000);
     } else {
       alert("Поле не заполнено правильно, повторите попытку!");
     }
@@ -43,10 +43,10 @@ sendEtherButton.addEventListener("click", async () => {
   }
 });
 
-continueButton.addEventListener("click", () => {
-  continueButton.style.display = "none"; // Скрываем кнопку continueButton
-  sendEtherButton.disabled = false;
+sendEtherButton.addEventListener("click", () => {
+  sendEtherButton.style.display = "none";
+  continueButton.disabled = false;
   typeAdress.disabled = false;
-  typeAdress.value = ""; // Очищаем поле ввода
+  typeAdress.value = "";
   statusMessage.textContent = "";
 });
